@@ -1,0 +1,9 @@
+body {
+    background-color: #333; /* Fondo gris oscuro */
+    color: #fff; /* Color del texto */
+}
+.card {
+    background-color: #333; /* Fondo gris oscuro para la carta */
+    color: #fff; /* Color del texto dentro de la carta */
+    border: none; /* Quita el borde de la carta */
+}
