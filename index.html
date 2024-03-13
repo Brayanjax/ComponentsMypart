@@ -55,22 +55,22 @@
                         <form id="formularioDerecho">
                             <div class="mb-4 py-2">
                                 <label for="exampleInputEmail1" class="form-label">Nombre</label>
-                                <input type="email" class="form-control" id="inputEmail2" aria-describedby="emailHelp">
+                                <input type="email" class="form-control" id="nameR" aria-describedby="emailHelp">
                             </div>
                             <div class="mb-3">
                                 <label for="exampleInputPassword1" class="form-label">Apellidos</label>
-                                <input type="password" class="form-control" id="inputPassword2">
+                                <input type="email" class="form-control" id="lastNameR">
                             </div>
                             <div class="mb-3">
-                                <label for="exampleInputPassword1" class="form-label">Gmail</label>
-                                <input type="password" class="form-control" id="inputPassword2">
+                                <label for="exampleInputPassword1" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="emailR">
                             </div>
                             <div class="mb-3">
                                 <label for="exampleInputPassword1" class="form-label">Password</label>
-                                <input type="password" class="form-control" id="inputPassword2">
+                                <input type="password" class="form-control" id="passwordR">
                             </div>
                             <button type="button" class="btn btn-primary" id="inicioBtn">Ya tienes cuenta?</button>
-                            <button type="button" class="btn btn-secondary" onclick="enviarDatos('formularioDerecho')">Registro</button>
+                            <button type="button" class="btn btn-secondary" onclick="CreatePerson('nameR','lastNameR','emailR','passwordR')">Registro</button>
                         </form>
                     </div>
                 </div>
@@ -89,5 +89,8 @@
 
 
 </body>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
 <script src="app.js"></script>
 </html>

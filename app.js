@@ -1,3 +1,7 @@
+let API_URL_BASE = 'https://task-manager-backend2.azurewebsites.net';
+  
+
+//movimiento
 document.getElementById('registroBtn').addEventListener('click', function() {
     document.getElementById('ladoIzquierdo').style.display = 'none';
     document.getElementById('imagenIzquierda').style.display = 'none';
@@ -12,39 +16,26 @@ document.getElementById('inicioBtn').addEventListener('click', function() {
     document.getElementById('imagenIzquierda').style.display = 'block';
 });
 
-function enviarDatos(formularioId) {
-    var emailInput = document.getElementById('emailInput' );
-    var passwordInput = document.getElementById('passwordInput' );
-
-    
-    if (emailInput && passwordInput) {
-        var email = emailInput.value;
-        var password = passwordInput.value;
-
-       
-        console.log("Email:", email);
-        console.log("Password:", password);
-    } else {
-        console.error("Los elementos de entrada no fueron encontrados.");
-    }
-}
+var nameR;
+var lastNameR;
+var emailR;
+var passwordR;
 
 
 
-function CreatePerson() {
-    this.SubmitPersonToCreate = function () {
-        var person = {};
-        person.identification = $('#identification').val();
-        person.email = $('#email').val();
-        person.userPassword = $('#password').val();
-        person.name = $('#firstName').val();
-        person.firstLastName = $('#firstLastName').val();
-        person.secondLastName = $('#secondLastName').val();
-        person.phone = $('#phoneNumber').val();
-        person.address = finalAddress;
-        person.photograph = $('#imgUser').attr('src');
 
-        var apiUrl = API_URL_BASE + "/api/Person/CreatePerson";
+//function CreatePerson() {
+    this.SubmitUserToCreate = function () {
+        var user = {};
+        user.id = $('#emailR').val();
+        user.name = $('#nameR').val();
+        user.firstLastName = $('#lastNameR').val();
+        user.email = $('#emailR').val();
+        user.userPassword = $('#passwordR').val();
+        
+         
+
+        var apiUrl = API_URL_BASE + "/api/User/CreateUser";
 
         $.ajax({
             url: apiUrl,
@@ -54,7 +45,7 @@ function CreatePerson() {
                 'Content-Type': 'application/json'
             },
             dataType: "json",
-            data: JSON.stringify(person),
+            data: JSON.stringify(user),
             hasContent: true
         }).done(function (outcome) {
             if (outcome.result === "OK")
@@ -88,8 +79,60 @@ function CreatePerson() {
             })
         });
     }
-}
+//}
     
+function CreatePerson(name, lastName, email, password) {
+    var user = {
+        id: email,
+        name: name,
+        lastName: lastName,
+        email: email,
+        password: password
+    };
+
+    var apiUrl = API_URL_BASE + '/api/Users/CreateUser';
+
+    $.ajax({
+        url: apiUrl,
+        method: "POST",
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        },
+        dataType: "json",
+        data: JSON.stringify(user),
+        success: function (outcome) {
+            handleOutcome(outcome);
+        },
+        
+    });
+}
+
+function handleOutcome(outcome) {
+    if (outcome.result === "OK") {
+        Swal.fire({
+            icon: 'success',
+            title: 'Usuario registrado',
+            text: outcome.message,
+            confirmButtonColor: 'var(--dark-purple)',
+            confirmButtonText: 'Aceptar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = 'index';
+            }
+        });
+    } else {
+        Swal.fire({
+            icon: 'error',
+            title: 'Error de registro',
+            text: outcome.message,
+            confirmButtonColor: 'var(--dark-purple)',
+            confirmButtonText: 'Aceptar'
+        });
+    }
+}
+
+
     
 /*function CreateUser() {
     this.SubmitPersonToActivate = function (nombre,apellido,gmail,contraseña) {
