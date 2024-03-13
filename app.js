@@ -16,76 +16,18 @@ document.getElementById('inicioBtn').addEventListener('click', function() {
     document.getElementById('imagenIzquierda').style.display = 'block';
 });
 
-var nameR;
-var lastNameR;
-var emailR;
-var passwordR;
+function CreatePerson(nameId, lastNameId, emailId, passwordId) {
+
+    var name = document.getElementById(nameId).value;
+    var lastName = document.getElementById(lastNameId).value;
+    var email = document.getElementById(emailId).value;
+    var password = document.getElementById(passwordId).value;
 
 
-
-
-//function CreatePerson() {
-    this.SubmitUserToCreate = function () {
-        var user = {};
-        user.id = $('#emailR').val();
-        user.name = $('#nameR').val();
-        user.firstLastName = $('#lastNameR').val();
-        user.email = $('#emailR').val();
-        user.userPassword = $('#passwordR').val();
-        
-         
-
-        var apiUrl = API_URL_BASE + "/api/User/CreateUser";
-
-        $.ajax({
-            url: apiUrl,
-            method: "POST",
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            dataType: "json",
-            data: JSON.stringify(user),
-            hasContent: true
-        }).done(function (outcome) {
-            if (outcome.result === "OK")
-                Swal.fire({
-                    icon: 'success',
-                    title: 'Usuario registrado',
-                    text: outcome.message,
-                    confirmButtonColor: 'var(--dark-purple)',
-                    confirmButtonText: 'Aceptar'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        window.location.href = '/Home/Index'
-                    }
-                });
-            else {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Error de registro',
-                    text: outcome.message,
-                    confirmButtonColor: 'var(--dark-purple)',
-                    confirmButtonText: 'Aceptar'
-                })
-            }
-        }).fail(function (error) {
-            Swal.fire({
-                icon: 'error',
-                title: 'Error inesperado',
-                text: 'Ha ocurrido el siguiente error: ' + error,
-                confirmButtonColor: 'var(--dark-purple)',
-                confirmButtonText: 'Aceptar'
-            })
-        });
-    }
-//}
-    
-function CreatePerson(name, lastName, email, password) {
     var user = {
-        id: email,
+        id: email, 
         name: name,
-        lastName: lastName,
+        lastname: lastName,
         email: email,
         password: password
     };
@@ -95,41 +37,14 @@ function CreatePerson(name, lastName, email, password) {
     $.ajax({
         url: apiUrl,
         method: "POST",
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
+        contentType: "application/json;charset=utf-8",
         dataType: "json",
-        data: JSON.stringify(user),
-        success: function (outcome) {
-            handleOutcome(outcome);
-        },
-        
+        data: JSON.stringify(user)
+    }).done(function (outcome) {
+        alert("Respuesta correcta: " + JSON.stringify(outcome));
+    }).fail(function (xhr, status, error) {
+        alert("Ha ocurrido un error: " + error + "\nEstado: " + status + "\nDetalles: " + xhr.responseText);
     });
-}
-
-function handleOutcome(outcome) {
-    if (outcome.result === "OK") {
-        Swal.fire({
-            icon: 'success',
-            title: 'Usuario registrado',
-            text: outcome.message,
-            confirmButtonColor: 'var(--dark-purple)',
-            confirmButtonText: 'Aceptar'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                window.location.href = 'index';
-            }
-        });
-    } else {
-        Swal.fire({
-            icon: 'error',
-            title: 'Error de registro',
-            text: outcome.message,
-            confirmButtonColor: 'var(--dark-purple)',
-            confirmButtonText: 'Aceptar'
-        });
-    }
 }
 
 
